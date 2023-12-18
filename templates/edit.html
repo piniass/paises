@@ -80,6 +80,11 @@
         <input type="text" class="form-control" value="{{pais.capital}}" name="capital">
         <small>Habitantes</small>
         <input type="number" class="form-control" value="{{pais.habitantes}}" name="habitantes">
+        <small>Bandera</small>
+        <div>
+            <img src="{{ url_for('obtener_imagen', pais_id=pais.id) }}" class="bandera-actual" alt="Bandera actual">
+        </div>
+        <input type="file" class="form-control" name="bandera">
         <small>Dia Nacional</small>
         <input type="date" class="form-control" value="{{pais.diaNacional}}" name="diaNacional">
         <button class="btn btn-primary btn-sm mt-3" type="submit">Confirmar</button>

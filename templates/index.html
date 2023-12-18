@@ -90,7 +90,7 @@
     </div>
     {% for pais in pais %}
     <div class="card detalles" id="detalles-{{pais.id}}">
-        <img src="{{ url_for('static', filename='images/' + pais.bandera_url) }}" class="card-img-top" alt="...">
+        <img src="{{ url_for('obtener_imagen', pais_id=pais.id) }}" class="card-img-top" alt="Bandera de {{pais.nombre}}">
         <div class="card-body">
             <h5 class="card-title">Pais: {{pais.nombre}}</h5>
             <p class="card-text">Capital: {{pais.capital}}</p>
