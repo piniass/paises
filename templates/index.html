@@ -10,8 +10,14 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
+            background-color: black;
             display: flex;
             flex-direction: column;
+        }
+
+        h3{
+            text-align: center;
+            color: white;
         }
 
         #container {
@@ -62,6 +68,7 @@
 </head>
 
 <body>
+    <h3>¡Exploremos el Mundo! 🌎 </h3>
     <div id="addDiv">
         <a href="/paises" id="add">Añadir País</a>
     </div>
@@ -75,6 +82,8 @@
                 <p class="card-text">{{pais.capital}}</p>
                 <input type="text" value="{{pais.id}}" style="display: none;" class="id-input">
                 <a href="#" class="btn btn-primary mostrarDetalles">Detalles</a>
+                <a href="/delete/{{pais.id}}"class="btn btn-primary">Eliminar</a>
+                <a href="{{ url_for('editForm' , id=pais.id) }}" class="btn btn-primary">Editar</a>
             </div>
         </div>
         {% endfor %}

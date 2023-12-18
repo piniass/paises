@@ -4,6 +4,8 @@ from paises import Pais
 from werkzeug.utils import secure_filename
 from random import sample
 import os
+from sqlalchemy.exc import SQLAlchemyError
+
 
 pais_schema = PaisSchema()
 pais_schema = PaisSchema(many=True)
@@ -11,22 +13,24 @@ pais_schema = PaisSchema(many=True)
 app.app_context().push()
 db.create_all()
 
+
 @app.route('/')
 def home():
     pais = Pais.query.all()
     paisesLeidos = pais_schema.dump(pais)
-    
-    return render_template('index.html', pais = pais)
+
+    return render_template('index.html', pais=pais)
+
 
 @app.route('/paises')
 def formulario():
     pais = Pais.query.all()
     paisesLeidos = pais_schema.dump(pais)
-    
-    return render_template('add.html', pais = paisesLeidos)
+
+    return render_template('add.html', pais=paisesLeidos)
 
 
-#Method Post
+# Method Post
 @app.route('/agregar', methods=['POST'])
 def addPais():
     if request.method == 'POST':
@@ -37,8 +41,10 @@ def addPais():
         diaNacional = request.form['diaNacional']
 
         # Script para archivo
-        basepath = os.path.dirname(__file__)  # La ruta donde se encuentra el archivo actual
-        filename = secure_filename(bandera_blob.filename)  # Nombre original del archivo
+        # La ruta donde se encuentra el archivo actual
+        basepath = os.path.dirname(__file__)
+        # Nombre original del archivo
+        filename = secure_filename(bandera_blob.filename)
 
         # Capturando extensión del archivo ejemplo: (.png, .jpg, .pdf ...etc)
         extension = os.path.splitext(filename)[1]
@@ -58,7 +64,7 @@ def addPais():
                 nombre=nombre,
                 capital=capital,
                 bandera_url=bandera_url,
-                bandera_blob=blob_data,  
+                bandera_blob=blob_data,
                 habitantes=habitantes,
                 diaNacional=diaNacional
             )
@@ -78,51 +84,54 @@ def addPais():
             return redirect(url_for('home'))
         else:
             return notFound()
-#Method delete
+# Method delete
+
+
 @app.route('/delete/<id>')
 def deletePais(id):
     pais = Pais.query.get(id)
     db.session.delete(pais)
     db.session.commit()
-    
+
     flash('Pais ' + id + ' eliminado correctamente')
     return redirect(url_for('home'))
 
-#Method Put
-@app.route('/edit/<id>', methods=['POST'])
-def editPais(id):    
-    
-    nombre = request.form['nombre']
-    capital = request.form['capital']
-    bandera = request.form['bandera']
-    habitantes = request.form['habitantes']
-    diaNacional = request.form['diaNacional']
-    
-    if nombre and capital and bandera and habitantes and diaNacional:
-        pais = Pais.query.get(id)
-  # return student_schema.jsonify(student)
-        pais.nombre = nombre
-        pais.capital = capital
-        pais.bandera = bandera
-        pais.habitantes = habitantes
-        pais.diaNacional = diaNacional
-        
-        db.session.commit()
-        
-        response = jsonify({'message' : 'Pais ' + id + ' actualizado correctamente'})
-        flash('Pais ' + id + ' modificado correctamente')
-        return redirect(url_for('home'))
-    else:
-        return notFound()
+# Method Put
 
+
+@app.route('/editar/<id>', methods=['GET', 'POST'])
+def editForm(id):
+    pais = Pais.query.get(id)
+    return render_template('edit.html', pais=pais)
+
+@app.route('/edit/<id>', methods=['POST'])
+def editPais(id):
+    # Obtener la instancia del país que se está editando
+    pais = Pais.query.get(id)
+
+    # Actualizar los atributos con los valores del formulario
+    pais.nombre = request.form.get('nombre')
+    pais.capital = request.form.get('capital')
+    pais.habitantes = request.form.get('habitantes')
+    pais.diaNacional = request.form.get('diaNacional')
+
+    # Guardar los cambios en la base de datos
+    db.session.commit()
+
+    flash('País ' + id + ' actualizado correctamente')
+    return redirect(url_for('home'))
+
+    
 @app.errorhandler(404)
 def notFound(error=None):
-    message ={
+    message = {
         'message': 'No encontrado ' + request.url,
         'status': '404 Not Found'
     }
     response = jsonify(message)
     response.status_code = 404
-    return response   
+    return response
+
+
 if __name__ == "__main__":
-   app.run(debug=True)
+    app.run(debug=True)
