@@ -29,6 +29,11 @@
 
         .card {
             margin: 10px;
+            background-color: #e2e2e2;
+        }
+
+        .card-title, .card-text{
+            text-align: center;
         }
 
         #addDiv {
@@ -45,6 +50,11 @@
             padding: 10px;
         }
 
+        .detalles img{
+            width: 200px;
+            height: 133px;
+        }
+
         .detalles {
             display: none;
             position: absolute;
@@ -52,7 +62,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 99;
-            background-color: white;
+            background-color: #e2e2e2;
             padding: 20px;
         }
 
@@ -80,10 +90,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{pais.nombre}}</h5>
                 <p class="card-text">{{pais.capital}}</p>
-                <input type="text" value="{{pais.id}}" style="display: none;" class="id-input">
+                <input type="text" value="{{pais.id}}" style="display: none;" class="id-input">            
                 <a href="#" class="btn btn-primary mostrarDetalles">Detalles</a>
-                <a href="/delete/{{pais.id}}"class="btn btn-primary">Eliminar</a>
-                <a href="{{ url_for('editForm' , id=pais.id) }}" class="btn btn-primary">Editar</a>
+                <a href="{{ url_for('editForm' , id=pais.id) }}" class="btn btn-success">Editar</a>
+                <a href="/delete/{{pais.id}}"class="btn btn-danger">Eliminar</a>
             </div>
         </div>
         {% endfor %}
