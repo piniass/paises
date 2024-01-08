@@ -80,20 +80,77 @@
 <body>
     <form action="/edit/{{ pais.id }}" method="POST" enctype="multipart/form-data">
         <small>Nombre</small>
-        <input type="text" class="form-control" value="{{pais.nombre}}" name="nombre">
+        <input type="text" class="form-control" value="{{pais.nombre}}" name="nombre" id="nombre">
         <small>Capital</small>
-        <input type="text" class="form-control" value="{{pais.capital}}" name="capital">
+        <input type="text" class="form-control" value="{{pais.capital}}" name="capital" id="capital">
         <small>Habitantes</small>
-        <input type="number" class="form-control" value="{{pais.habitantes}}" name="habitantes">
+        <input type="number" class="form-control" value="{{pais.habitantes}}" name="habitantes" id="habitantes">
         <small>Bandera</small>
         <div>
             <img src="{{ url_for('obtener_imagen', pais_id=pais.id) }}" class="bandera-actual" alt="Bandera actual">
         </div>
-        <input type="file" class="form-control" name="bandera">
+        <input type="file" class="form-control" name="bandera" id="bandera">
         <small>Dia Nacional</small>
         <input type="date" class="form-control" value="{{pais.diaNacional}}" name="diaNacional">
         <button class="btn btn-primary btn-sm mt-3" type="submit">Confirmar</button>
     </form>
     <a href="/">Volver</a>
 </body>
+<script>
+    const form = document.getElementsByTagName('form')[0];
+    const nombre = document.getElementById('nombre')
+    const capital = document.getElementById('capital')
+    const bandera = document.getElementById('bandera')
+    const habitantes = document.getElementById('habitantes')
+    const diaNacional = document.getElementById('diaNacional')
+    const submit = document.getElementById('submit')
+
+    form.addEventListener('submit', validar, false)
+
+    function validar(ev){
+        if(!validarNombre() || !validarCapital() || !validarBandera() || !validarHabitantes()){
+            ev.preventDefault()
+            return false 
+        } else{
+            return true
+        }
+    }
+
+    function validarNombre(){
+        var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+        if (expresion.test(nombre.value)){
+            return true
+        } else{
+            alert("Inserte un nombre correcto, primera letra mayúscula.")
+        }
+    }
+
+    function validarCapital(){
+        var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+        if (expresion.test(capital.value)){
+            return true
+        } else{
+            alert("Inserte una capital correcta, primera letra mayúscula.")
+        }
+    }
+
+    function validarBandera(){
+        var expresion = /\.(jpg|png|jpeg)$/i
+        if (expresion.test(bandera.value) || bandera.value == ""){
+            return true
+        } else{
+            alert("Inserte una imagen correcta, Solo imágenes png, jpg o jpeg.")
+        }
+    }
+
+    function validarHabitantes(){
+        var habitantesValue = parseInt(habitantes.value, 10);
+        if (!isNaN(habitantesValue) && habitantesValue >= 0){
+            return true;
+        } else {
+            alert("Ingrese un número válido y mayor o igual a cero para los habitantes.")
+            return false;
+        }
+    }
+</script>
 </html>

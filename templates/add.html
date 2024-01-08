@@ -43,7 +43,7 @@
 
                 <div class="mb-3">
                     <label for="capital" class="form-label">Capital:</label>
-                    <input type="text" name="capital" class="form-control" id="nombre" placeholder="Ingrese el nombre de la capital" />
+                    <input type="text" name="capital" class="form-control" id="capital" placeholder="Ingrese el nombre de la capital" />
                 </div>
 
                 <div class="mb-3">
@@ -62,9 +62,67 @@
                     <input type="date" name="diaNacional" class="form-control" id="diaNacional" />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary" id="submit">Enviar</button>
             </form>
     </div>
+
+    <script>
+        const form = document.getElementsByTagName('form')[0];
+        const nombre = document.getElementById('nombre')
+        const capital = document.getElementById('capital')
+        const bandera = document.getElementById('bandera')
+        const habitantes = document.getElementById('habitantes')
+        const diaNacional = document.getElementById('diaNacional')
+        const submit = document.getElementById('submit')
+
+        form.addEventListener('submit', validar, false)
+
+        function validar(ev){
+            if(!validarNombre() || !validarCapital() || !validarBandera() || !validarHabitantes()){
+                ev.preventDefault()
+                return false 
+            } else{
+                return true
+            }
+        }
+
+        function validarNombre(){
+            var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+            if (expresion.test(nombre.value)){
+                return true
+            } else{
+                alert("Inserte un nombre correcto, primera letra mayúscula.")
+            }
+        }
+
+        function validarCapital(){
+            var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+            if (expresion.test(capital.value)){
+                return true
+            } else{
+                alert("Inserte un nombre correcto, primera letra mayúscula.")
+            }
+        }
+
+        function validarBandera(){
+            var expresion = /\.(jpg|png|jpeg)$/i
+            if (expresion.test(bandera.value)){
+                return true
+            } else{
+                alert("Inserte una imagen correcta, Solo imágenes png, jpg o jpeg.")
+            }
+        }
+
+        function validarHabitantes(){
+            var habitantesValue = parseInt(habitantes.value, 10);
+            if (!isNaN(habitantesValue) && habitantesValue >= 0){
+                return true;
+            } else {
+                alert("Ingrese un número válido y mayor o igual a cero para los habitantes.")
+                return false;
+            }
+        }
+    </script>
 
     <!-- Agrega los scripts de Bootstrap al final del cuerpo del documento -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
