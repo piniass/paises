@@ -117,7 +117,7 @@
     }
 
     function validarNombre(){
-        var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+        var expresion = /^[A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñA-ZÁÉÍÓÚÑ]+$/
         if (expresion.test(nombre.value)){
             return true
         } else{
@@ -126,7 +126,7 @@
     }
 
     function validarCapital(){
-        var expresion = /^[A-Z]{1}[a-zA-Z]+$/
+        var expresion = /^[A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñA-ZÁÉÍÓÚÑ]+$/
         if (expresion.test(capital.value)){
             return true
         } else{
