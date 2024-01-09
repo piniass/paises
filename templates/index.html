@@ -9,9 +9,12 @@
                 <h5 class="card-title">{{pais.nombre}}</h5>
                 <p class="card-text">{{pais.capital}}</p>
                 <input type="text" value="{{pais.id}}" style="display: none;" class="id-input">            
-                <a href="#" class="btn btn-primary mostrarDetalles">Detalles</a>
+                <div class="botones">
+                    <a href="#" class="btn btn-primary mostrarDetalles">Detalles</a>
                 <a href="{{ url_for('editForm' , id=pais.id) }}" class="btn btn-success">Editar</a>
                 <a href="/delete/{{pais.id}}"class="btn btn-danger">Eliminar</a>
+                </div>
+                
             </div>
         </div>
         {% endfor %}
