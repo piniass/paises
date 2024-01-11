@@ -1,11 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "app.py",
-      "use": "@now/python"
-    }
-  ],
+    "version": 2,
+    "builds": [
+        {
+            "src": "*.py",
+            "use": "@vercel/python"
+        }
+    ],
   "routes": [
     { "handle": "filesystem" },
     { "src": "/static/(.*)", "dest": "/static/$1" },
