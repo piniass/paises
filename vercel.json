@@ -8,8 +8,22 @@
     ],
     "routes": [
         {
-            "src": "(.*)",
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/agregar",
+            "dest": "app.py"
+        },
+        {
+            "src": "/(.*)",
             "dest": "app.py"
         }
-    ]
+    ],
+    "functions": {
+        "api/agregar": {
+            "runtime": "@vercel/python",
+            "handler": "app.add_pais"
+        }
+    }
 }
