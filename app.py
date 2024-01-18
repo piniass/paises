@@ -40,7 +40,7 @@ def formulario():
 # Method Post
 def guardar_archivo(bandera_blob, nombre):
     # La ruta donde se encuentra el archivo actual
-    basepath = os.path.dirname(__file__)
+    # basepath = os.path.dirname(__file__)
     # Nombre original del archivo
     filename = secure_filename(bandera_blob.filename)
 
@@ -48,12 +48,12 @@ def guardar_archivo(bandera_blob, nombre):
     extension = os.path.splitext(filename)[1]
     nuevo_nombre_file = "BanderaDe" + nombre + extension
 
-    upload_path = os.path.join(basepath, 'static/images', nuevo_nombre_file)
-    bandera_blob.save(upload_path)
+    # upload_path = os.path.join(basepath, 'static/images', nuevo_nombre_file)
+    # bandera_blob.save(upload_path)
 
     # Leer el contenido del archivo como bytes
-    with open(upload_path, 'rb') as file:
-        blob_data = file.read()
+    # with open(upload_path, 'rb') as file:
+    blob_data = bandera_blob.read()
 
     bandera_url = "BanderaDe" + nombre + extension
 
