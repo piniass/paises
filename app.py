@@ -41,7 +41,7 @@ def formulario():
 def guardar_archivo(bandera_blob, nombre):
     # La ruta donde se encuentra el archivo actual
     basepath = os.path.dirname(__file__)
-    Nombre original del archivo
+    # Nombre original del archivo
     filename = secure_filename(bandera_blob.filename)
 
     # Capturando extensión del archivo ejemplo: (.png, .jpg, .pdf ...etc)
