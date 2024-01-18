@@ -26,7 +26,7 @@ def home():
 @app.route('/imagen/<int:pais_id>')
 def obtener_imagen(pais_id):
     pais = Pais.query.get_or_404(pais_id)
-    return send_file(io.BytesIO(pais.bandera_blob), mimetype='image/png')  
+    return send_file(io.BytesIO(pais.bandera_blob), mimetype='image/jpeg')  
 
 
 @app.route('/paises')
