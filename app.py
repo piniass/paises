@@ -52,8 +52,8 @@ def guardar_archivo(bandera_blob, nombre):
     bandera_blob.save(upload_path)
 
     # Leer el contenido del archivo como bytes
-    # with open(upload_path, 'rb') as file:
-    blob_data = bandera_blob.read()
+    with open(upload_path, 'rb') as file:
+        blob_data = bandera_blob.read()
 
     bandera_url = "BanderaDe" + nombre + extension
 
